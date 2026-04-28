@@ -14,7 +14,8 @@ html, body {
 }
 
 .home {
-  padding: 3.5rem 3rem 4rem;
+  margin: 0 auto;
+  padding: 3.5rem 20px 4rem;
   max-width: 680px;
 }
 
@@ -36,10 +37,30 @@ html, body {
   line-height: 1.5;
 }
 
+.home-footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: #ccc 1px solid;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: #888;
+  text-align: center;
+  a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.5s ease;
+    &:hover {
+      color: #000;
+    }
+  }
+}
+
 /* Lab list */
 
 .lab-section {
-  margin-top: 3.5rem;
+  margin-top: 2rem;
+  border-top:#ccc 1px solid;
+  padding-top: 2rem;
 }
 
 .lab-label {
@@ -104,4 +125,9 @@ html, body {
   color: #777;
   line-height: 1.55;
   padding-left: 2.75rem;
+}
+
+.lab-link--inert {
+  cursor: default;
+  opacity: 0.4;
 }

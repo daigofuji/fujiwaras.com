@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useEffect } from 'react'
 import { OrbitControls, Text3D, Center } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 
@@ -50,8 +50,9 @@ function RainbowText({ text, position = [0, 0, 0] }) {
 function Swarm({ count, dummy = new THREE.Object3D() }) {
   const mesh = useRef()
   const light = useRef()
-  const particles = useMemo(() => {
+  const { particles, colorArray } = useMemo(() => {
     const temp = []
+    const arr = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
       const t = Math.random() * 100
       const factor = 20 + Math.random() * 100
@@ -60,9 +61,10 @@ function Swarm({ count, dummy = new THREE.Object3D() }) {
       const yFactor = -50 + Math.random() * 100
       const zFactor = -50 + Math.random() * 100
       const color = new THREE.Color(rainbowColors[Math.floor(Math.random() * rainbowColors.length)])
+      color.toArray(arr, i * 3)
       temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0, color })
     }
-    return temp
+    return { particles: temp, colorArray: arr }
   }, [count])
 
   useFrame((state) => {
@@ -99,20 +101,34 @@ function Swarm({ count, dummy = new THREE.Object3D() }) {
       <ambientLight ref={light} intensity={1} />
       <instancedMesh ref={mesh} args={[null, null, count]}>
         <sphereGeometry args={[0.3]} />
-        <meshStandardMaterial
-          vertexColors
-          metalness={1}
-          roughness={0.5}
-          transparent
-        />
+        <meshStandardMaterial vertexColors metalness={1} roughness={0.5} transparent />
+        <instancedBufferAttribute attach="instanceColor" args={[colorArray, 3]} />
       </instancedMesh>
     </>
   )
 }
 
 export default function Lab002() {
+  useEffect(() => {
+    const style = document.createElement('style')
+    style.textContent = `
+      body { animation: lab002Bg 16s infinite; }
+      @keyframes lab002Bg {
+        0%     { background: radial-gradient(ellipse at center, #720202, #000000); }
+        16.66% { background: radial-gradient(ellipse at center, #7F4600, #000000); }
+        33.32% { background: radial-gradient(ellipse at center, #7F7500, #000000); }
+        49.98% { background: radial-gradient(ellipse at center, #004013, #000000); }
+        66.64% { background: radial-gradient(ellipse at center, #00287F, #000000); }
+        83.30% { background: radial-gradient(ellipse at center, #391341, #000000); }
+        100%   { background: radial-gradient(ellipse at center, #720202, #000000); }
+      }
+    `
+    document.head.appendChild(style)
+    return () => document.head.removeChild(style)
+  }, [])
+
   return (
-    <Canvas style={{ background: '#000' }}>
+    <Canvas>
       <ambientLight intensity={0.1} />
       <directionalLight position={[50, 50, 50]} intensity={20} />
       <directionalLight position={[-50, -50, -50]} intensity={10} />
