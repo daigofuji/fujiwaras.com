@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo } from 'react';
 import { OrbitControls, Text3D, Center } from "@react-three/drei";
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
+
 import './App.css'
 import './assets/RainbowMaterial';
 
@@ -16,7 +17,7 @@ const rainbowColors = [
   '#732682'
 ];
 
-function RainbowText({ text }) {
+function RainbowText({ text, position = [0, 0, 0] }) {
   const materialRef = useRef();
   const textRef = useRef();
   const { size } = useThree();
@@ -38,8 +39,9 @@ function RainbowText({ text }) {
       <Text3D
         ref={textRef}
         font="/Russo_One.json"
-        size={size.width > 1000 ? 0.5 : 0.3}
+        size={size.width > 700 ? 0.4 : 0.2}
         curveSegments={32}
+        position={position}
       >
         {text}
         <rainbowMaterial ref={materialRef} metalness={1} roughness={1} />
@@ -100,7 +102,6 @@ function Swarm({ count, dummy = new THREE.Object3D() }) {
   return (
     <>
       <ambientLight ref={light} intensity={1} />
-      {/* <pointLight ref={light} distance={40} intensity={20} color="white" /> */}
       <instancedMesh ref={mesh} args={[null, null, count]}>
         <sphereGeometry 
           args={[0.3]}
@@ -131,7 +132,7 @@ function App() {
           intensity={10}
         />
         <mesh>
-          <RainbowText text="daigofujiwara.com" />
+          <RainbowText text="Daigo Fujiwara-Smith" position={[0, 1, -0]} />
           <Swarm count={1000} />
         </mesh>
         <OrbitControls target={[0, 0, 0]}/>
