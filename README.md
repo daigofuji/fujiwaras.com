@@ -58,7 +58,11 @@ Each lab experiment is fully self-contained — its own `index.jsx` and any co-l
 
 ## Deployment
 
-GitHub Pages, branch `main`, custom domain `fujiwaras.com`. DNS at Dreamhost.
+**Push to `main` → GitHub Actions builds and publishes automatically.**
+
+Workflow: `.github/workflows/deploy.yml` — runs `npm ci && npm run build`, uploads `dist/` as a Pages artifact, deploys via `actions/deploy-pages`. Requires GitHub repo Settings → Pages → Source set to **"GitHub Actions"**.
+
+Custom domain `fujiwaras.com`. DNS at Dreamhost (A records → GitHub Pages IPs). `public/CNAME` keeps the custom domain pinned after each deploy.
 
 `public/404.html` is identical to `index.html` — GitHub Pages serves it for any path that doesn't match a static file, letting wouter handle the route.
 

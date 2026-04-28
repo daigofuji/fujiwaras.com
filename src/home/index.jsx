@@ -8,13 +8,12 @@ export default function Home() {
       <header>
         <h1 className="home-name">Daigo Fujiwara-Smith</h1>
         <p className="home-tagline">
-          World-class newsroom developer,<br />
-          visual computational artist.
+          World-class newsroom developer, visual computational artist. Lifetime learner.
         </p>
       </header>
 
       <section className="lab-section">
-        <p className="lab-label">Lab</p>
+        <p className="lab-label">Playground</p>
         <ol className="lab-list">
           {experiments.map((exp) => (
             <li key={exp.slug} className="lab-item">
