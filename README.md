@@ -1,59 +1,82 @@
-# r3f-playground
-Vite + React and React Three Fiber (R3F) experimental website
+# fujiwaras.com
 
-Playing around and making splash pages for my personal websites, such as [daigofujiwara.com](https://daigofujiwara.com) and [fujiwaras.com](https://fujiwaras.com)
+Personal creative lab — R3F/WebGPU experiments published as I learn in public.
 
-- [R3F Docs](https://r3f.docs.pmnd.rs/getting-started/introduction)
+[fujiwaras.com](https://fujiwaras.com) is a sparse index of lab experiments. Each one is a full-screen canvas page at `/lab/NNN-name`.
 
-- [ThreeJS](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
+---
 
-- [Drei](https://drei.docs.pmnd.rs/getting-started/introduction) [github](https://github.com/pmndrs/drei)
+## Stack
 
-Reference [Tutorial](https://github.com/sixfwa/threejs-basics) that I used.
+| Package | Purpose |
+| --- | --- |
+| Vite 6 + React 19 | Build tooling and UI |
+| @react-three/fiber v9 | React renderer for Three.js (WebGPU-ready) |
+| @react-three/drei | Helpers: `Text3D`, `Center`, `OrbitControls`, `useGLTF` |
+| @react-three/postprocessing | Bloom, Vignette, etc. |
+| three 0.173+ | Core 3D engine |
+| wouter v3 | Lightweight SPA router (~1.5KB, no provider needed) |
+| maath | Math/easing utilities from the pmnd.rs ecosystem |
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-uses node v18.20.4. Run `nvm use` to switch to the correct version.
+---
 
 ## Getting Started
 
 ```bash
+nvm use          # node v22.22.2
 npm install
 npm start
 ```
 
+---
 
+## Architecture
 
-Currently, two official plugins are available:
+```text
+src/
+  lab/
+    index.js              ← experiment registry (slug, title, date, description)
+    lab.css               ← shared canvas reset
+    001-sagarifuji/       ← App.jsx + co-located assets
+    002-rainbow-swarm/    ← App.jsx + co-located assets
+  home/
+    index.jsx             ← sparse landing page (Libre Franklin, are.na aesthetic)
+    home.css
+  main.jsx                ← wouter router
+public/
+  sagarifuji.glb
+  fujiwara.glb
+  Russo_One.json
+  404.html                ← copy of index.html for GitHub Pages SPA routing
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Each lab experiment is fully self-contained — its own `index.jsx` and any co-located asset components.
 
+**Adding experiment 003:** create `src/lab/003-name/index.jsx`, add one object to `src/lab/index.js`, add one `<Route>` in `src/main.jsx`.
 
-## Note
+---
 
-I made sagarifuji.glb from svg.
-- Import SVG shape in [blender app](https://www.blender.org/)
-- hit S to scale it larger
-- Coltrol J to join the shapes
-- Pressing tab will enter the "edit mode"
-- A to select all
-- E to extrude
-- rotating x axis to 90 degree 
-- remove material 
-- export as glb
-- drop the file in public folder
+## Deployment
 
+GitHub Pages, branch `main`, custom domain `fujiwaras.com`. DNS at Dreamhost.
 
-### To import glb file in threejs
+`public/404.html` is identical to `index.html` — GitHub Pages serves it for any path that doesn't match a static file, letting wouter handle the route.
 
-I used [gltf.pmnd.rs](https://gltf.pmnd.rs/) to convert glb to react component that can be used by R3F. 
+---
 
-### Using font
+## 3D Asset Pipeline
 
-I used Russo One font from google font. Download ttf file and use converter such as [facetype.js](https://gero3.github.io/facetype.js/) to convert to json.
+SVG → Blender (import, extrude, export `.glb`) → [gltfjsx](https://gltf.pmnd.rs/) → React component.
 
-### Other notes
+Used for: `sagarifuji.glb`, `fujiwara.glb`. Social icon SVGs are loaded at runtime via Three.js `SVGLoader`.
 
-- useFrame in R3F is a hook that runs every frame rendered, similar to a render loop.
-- You receive the state (useThree) and a clock delta https://r3f.docs.pmnd.rs/api/hooks#useframe
+### Blender GLB export steps
+
+1. Import SVG → hit `S` to scale up → `Ctrl+J` to join shapes
+2. `Tab` → edit mode → `A` select all → `E` extrude
+3. Rotate X axis 90° → remove material → export as `.glb`
+4. Drop in `public/`, run through [gltf.pmnd.rs](https://gltf.pmnd.rs/) to generate the React component
+
+### Font pipeline
+
+Download TTF from Google Fonts → convert to JSON via [facetype.js](https://gero3.github.io/facetype.js/) → drop in `public/`.

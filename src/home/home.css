@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background: #fff;
+  color: #111;
+  font-family: 'Libre Franklin', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.home {
+  padding: 3.5rem 3rem 4rem;
+  max-width: 680px;
+}
+
+/* Header */
+
+.home-name {
+  font-size: 1.0625rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+}
+
+.home-tagline {
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: #888;
+  line-height: 1.5;
+}
+
+/* Lab list */
+
+.lab-section {
+  margin-top: 3.5rem;
+}
+
+.lab-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 1.5rem;
+}
+
+.lab-list {
+  list-style: none;
+}
+
+.lab-item {
+  margin-bottom: 1.75rem;
+}
+
+.lab-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.lab-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  align-items: baseline;
+  column-gap: 0.75rem;
+  margin-bottom: 0.3rem;
+}
+
+.lab-num {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #ccc;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: color 0.15s ease;
+}
+
+.lab-link:hover .lab-title {
+  color: #555;
+}
+
+.lab-date {
+  font-size: 0.6875rem;
+  font-weight: 300;
+  color: #bbb;
+  white-space: nowrap;
+}
+
+.lab-description {
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: #777;
+  line-height: 1.55;
+  padding-left: 2.75rem;
+}

@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import { extend } from '@react-three/fiber';
+import * as THREE from 'three'
+import { extend } from '@react-three/fiber'
 
 class RainbowMaterial extends THREE.ShaderMaterial {
   constructor() {
@@ -31,71 +31,44 @@ class RainbowMaterial extends THREE.ShaderMaterial {
         varying vec3 vPosition;
 
         vec3 getColor(float t) {
-          if (t < 0.166) return vec3(0.894, 0.012, 0.012); // Red (#E40303)
-          else if (t < 0.332) return vec3(1.0, 0.549, 0.0); // Orange (#FF8C00)
-          else if (t < 0.498) return vec3(1.0, 0.929, 0.0); // Yellow (#FFE500)
-          else if (t < 0.664) return vec3(0.0, 0.502, 0.149); // Green (#008026)
-          else if (t < 0.83) return vec3(0.0, 0.298, 1.0); // Indigo (#004DFF)
-          else return vec3(0.451, 0.161, 0.51); // Violet (#732682)
+          if (t < 0.166) return vec3(0.894, 0.012, 0.012);
+          else if (t < 0.332) return vec3(1.0, 0.549, 0.0);
+          else if (t < 0.498) return vec3(1.0, 0.929, 0.0);
+          else if (t < 0.664) return vec3(0.0, 0.502, 0.149);
+          else if (t < 0.83) return vec3(0.0, 0.298, 1.0);
+          else return vec3(0.451, 0.161, 0.51);
         }
 
         void main() {
           float t = mod(vUv.x + time * 0.1, 1.0);
           vec3 color = getColor(t);
-          color = mix(color, vec3(1.0), 0.2); // Blend with white to reduce saturation
+          color = mix(color, vec3(1.0), 0.2);
 
-          // Calculate lighting
           vec3 lightDir = normalize(lightPosition - vPosition);
           float lightIntensity = max(dot(vNormal, lightDir), 0.0);
-
-          // Darken the sides
-          float sideDarkening = 0.3 + 0.5 * lightIntensity; // Adjust  darkening effect
+          float sideDarkening = 0.3 + 0.5 * lightIntensity;
           color *= sideDarkening;
 
-          // Calculate specular highlights
           vec3 viewDir = normalize(-vPosition);
           vec3 halfDir = normalize(lightDir + viewDir);
           float specAngle = max(dot(vNormal, halfDir), 0.0);
-          float specular = pow(specAngle, 16.0); // Adjust shininess
+          float specular = pow(specAngle, 16.0);
 
           vec3 finalColor = color + vec3(specular);
           gl_FragColor = vec4(finalColor, 1.0);
         }
       `,
-    });
+    })
   }
 
-  get time() {
-    return this.uniforms.time.value;
-  }
-
-  set time(value) {
-    this.uniforms.time.value = value;
-  }
-
-  get metalness() {
-    return this.uniforms.metalness.value;
-  }
-
-  set metalness(value) {
-    this.uniforms.metalness.value = value;
-  }
-
-  get roughness() {
-    return this.uniforms.roughness.value;
-  }
-
-  set roughness(value) {
-    this.uniforms.roughness.value = value;
-  }
-
-  get lightPosition() {
-    return this.uniforms.lightPosition.value;
-  }
-
-  set lightPosition(value) {
-    this.uniforms.lightPosition.value = value;
-  }
+  get time() { return this.uniforms.time.value }
+  set time(v) { this.uniforms.time.value = v }
+  get metalness() { return this.uniforms.metalness.value }
+  set metalness(v) { this.uniforms.metalness.value = v }
+  get roughness() { return this.uniforms.roughness.value }
+  set roughness(v) { this.uniforms.roughness.value = v }
+  get lightPosition() { return this.uniforms.lightPosition.value }
+  set lightPosition(v) { this.uniforms.lightPosition.value = v }
 }
 
-extend({ RainbowMaterial });
+extend({ RainbowMaterial })
