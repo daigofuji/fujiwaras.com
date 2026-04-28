@@ -30,5 +30,12 @@ export const experiments = [
     title: 'Maine Concierge',
     date: 'March 2026',
     description: 'Eating at every restaurant on the peninsula of Portland, Maine since 2018.',
+  }, 
+  {
+    // Maine JS 
+    url: 'https://daigofuji.github.io/maine-three-js-sept-2025/1',
+    title: 'Taming Three.js with React Three Fiber',
+    date: 'September 2025',
+    description: 'Presented at Maine JS Lightning Talk, September 9, 2025. Made using slidev.',
   }
 ]
