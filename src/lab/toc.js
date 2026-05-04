@@ -1,7 +1,7 @@
 export const toc = [
   {
     slug: '003-stage',
-    title: 'Stage',
+    title: '[WIP] Stage',
     date: 'May 2026',
     description: 'Theatrical stage scene with spotlights.',
   },
