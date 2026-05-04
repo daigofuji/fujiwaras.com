@@ -69,7 +69,14 @@ html, body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #bbb;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
+}
+.lab-chatter {
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: #777;
+  line-height: 1.55;
+  margin-bottom: 1.75rem;
 }
 
 .lab-list {

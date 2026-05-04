@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'wouter'
-import { experiments } from '../lab/index.js'
+import { toc } from '../lab/toc.js'
 import './home.css'
 
 function ExperimentEntry({ exp }) {
@@ -32,8 +32,9 @@ export default function Home() {
 
       <section className="lab-section">
         <p className="lab-label">Playground</p>
+        <p className="lab-chatter">My digital sketches and interactive proof of concepts.</p>
         <ol className="lab-list">
-          {experiments.map((exp) => (
+          {toc.map((exp) => (
             <li key={exp.slug || exp.url || exp.title} className="lab-item">
               <ExperimentEntry exp={exp} />
             </li>
