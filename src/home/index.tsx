@@ -31,7 +31,7 @@ export default function Home() {
 
       <section className="lab-section">
         <p className="lab-label">Playground</p>
-        <p className="lab-chatter">My digital sketches and interactive proof of concepts.</p>
+        <p className="lab-chatter">My digital sketches and interactive proof of concepts in WebGPU and such.</p>
         <div className="lab-links">
           <a href="https://github.com/daigofuji" target="_blank" rel="noopener noreferrer">GitHub</a> |{' '}
           <a href="https://instagram.com/daigofuji" target="_blank" rel="noopener noreferrer">Instagram</a> |{' '}
