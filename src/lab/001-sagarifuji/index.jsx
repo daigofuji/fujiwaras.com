@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
-import { Canvas, useFrame } from '@react-three/fiber'
+ 
+import { Canvas, useFrame } from '@react-three/fiber/webgpu'
 import { useRef, useState } from 'react'
 import { Center } from '@react-three/drei'
-import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing'
 import { easing } from 'maath'
 
 import '../lab.css'
@@ -77,10 +76,6 @@ export default function Lab001() {
         <RotatingSagarifuji />
         <ClickableFujiwara />
       </Center>
-      <EffectComposer>
-        <Bloom luminanceThreshold={0.95} luminanceSmoothing={0.5} height={300} />
-        <Vignette eskil={true} offset={0.1} darkness={0.3} />
-      </EffectComposer>
       <CameraRig />
     </Canvas>
   )

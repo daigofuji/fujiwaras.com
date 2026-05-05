@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
 import * as THREE from 'three'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useRef, useMemo, useEffect } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber/webgpu'
+import { useRef, useMemo, useEffect, useLayoutEffect } from 'react'
 import { OrbitControls, Text3D, Center } from '@react-three/drei'
-import { EffectComposer, Bloom } from '@react-three/postprocessing'
 
 import '../lab.css'
-import './RainbowMaterial'
 
 const rainbowColors = [
   '#E40303',
@@ -18,16 +16,21 @@ const rainbowColors = [
 ]
 
 function RainbowText({ text, position = [0, 0, 0] }) {
-  const materialRef = useRef()
   const textRef = useRef()
+  const elapsed = useRef(0)
   const { size } = useThree()
 
-  useFrame((state, delta) => {
-    if (materialRef.current) {
-      materialRef.current.time += delta * 0.3
-    }
+  useLayoutEffect(() => {
     if (textRef.current) {
-      textRef.current.position.z = Math.sin(state.clock.elapsedTime) * 0.4
+      const box = new THREE.Box3().setFromObject(textRef.current)
+      console.log('Text3D size:', box.getSize(new THREE.Vector3()))
+    }
+  })
+
+  useFrame((_, delta) => {
+    elapsed.current += delta
+    if (textRef.current) {
+      textRef.current.position.z = Math.sin(elapsed.current) * 0.4
     }
   })
 
@@ -39,9 +42,10 @@ function RainbowText({ text, position = [0, 0, 0] }) {
         size={size.width > 700 ? 0.4 : 0.2}
         curveSegments={32}
         position={position}
+        scale={[1, 1, 0.001]}
       >
         {text}
-        <rainbowMaterial ref={materialRef} metalness={1} roughness={1} />
+        <meshStandardMaterial color="#E8B4B0" metalness={0} roughness={0.85} />
       </Text3D>
     </Center>
   )
@@ -50,9 +54,10 @@ function RainbowText({ text, position = [0, 0, 0] }) {
 function Swarm({ count, dummy = new THREE.Object3D() }) {
   const mesh = useRef()
   const light = useRef()
-  const { particles, colorArray } = useMemo(() => {
+  const geo = useMemo(() => new THREE.SphereGeometry(0.3), [])
+  const mat = useMemo(() => new THREE.MeshStandardMaterial({ vertexColors: true, metalness: 1, roughness: 0.5 }), [])
+  const particles = useMemo(() => {
     const temp = []
-    const arr = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
       const t = Math.random() * 100
       const factor = 20 + Math.random() * 100
@@ -61,10 +66,9 @@ function Swarm({ count, dummy = new THREE.Object3D() }) {
       const yFactor = -50 + Math.random() * 100
       const zFactor = -50 + Math.random() * 100
       const color = new THREE.Color(rainbowColors[Math.floor(Math.random() * rainbowColors.length)])
-      color.toArray(arr, i * 3)
       temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0, color })
     }
-    return { particles: temp, colorArray: arr }
+    return temp
   }, [count])
 
   useFrame((state) => {
@@ -99,11 +103,7 @@ function Swarm({ count, dummy = new THREE.Object3D() }) {
   return (
     <>
       <ambientLight ref={light} intensity={1} />
-      <instancedMesh ref={mesh} args={[null, null, count]}>
-        <sphereGeometry args={[0.3]} />
-        <meshStandardMaterial vertexColors metalness={1} roughness={0.5} transparent />
-        <instancedBufferAttribute attach="instanceColor" args={[colorArray, 3]} />
-      </instancedMesh>
+      <instancedMesh ref={mesh} args={[geo, mat, count]} />
     </>
   )
 }
@@ -137,9 +137,6 @@ export default function Lab002() {
         <Swarm count={1000} />
       </mesh>
       <OrbitControls target={[0, 0, 0]} />
-      <EffectComposer>
-        <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.9} height={300} opacity={0.5} />
-      </EffectComposer>
     </Canvas>
   )
 }

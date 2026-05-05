@@ -26,7 +26,7 @@ export default function Home() {
       <header>
         <h1 className="home-name">Daigo Fujiwara-Smith</h1>
         <p className="home-tagline">
-          World-class newsroom developer, visual computational artist. Lifetime learner.
+          Lifetime learner to be a world-class newsroom developer, visual computational artist. This is the place I learn in public, share experiments, and document my journey.
         </p>
       </header>
 
@@ -34,6 +34,7 @@ export default function Home() {
         <p className="lab-label">Playground</p>
         <p className="lab-chatter">My digital sketches and interactive proof of concepts.</p>
         <div className="lab-links">
+          <a href="https://github.com/daigofuji" target="_blank" rel="noopener noreferrer">GitHub</a> |{' '}
           <a href="https://instagram.com/daigofuji" target="_blank" rel="noopener noreferrer">Instagram</a> |{' '}
           <a href="https://www.linkedin.com/in/daigo/" target="_blank" rel="noopener noreferrer">LinkedIn</a> |{' '}
           <a href="https://bsky.app/profile/daigofuji.bsky.social" target="_blank" rel="noopener noreferrer">BlueSky</a>
