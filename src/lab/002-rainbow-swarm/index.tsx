@@ -146,7 +146,7 @@ export default function Lab002() {
   }, [])
 
   return (
-    <Canvas>
+    <Canvas style={{ width: '100vw', height: '100vh' }}>
       <ambientLight intensity={0.1} />
       <directionalLight position={[50, 50, 50]} intensity={20} />
       <directionalLight position={[-50, -50, -50]} intensity={10} />

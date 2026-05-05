@@ -67,7 +67,7 @@ function CameraRig() {
 
 export default function Lab001() {
   return (
-    <Canvas style={{ background: 'radial-gradient(ellipse at center, #f4f4f4, #bbb)' }}>
+    <Canvas style={{ background: 'radial-gradient(ellipse at center, #f4f4f4, #bbb)', width: '100vw', height: '100vh' }}>
       <ambientLight intensity={1.5} />
       <directionalLight position={[10, 10, 15]} intensity={2} castShadow />
       <directionalLight position={[-10, -10, -15]} intensity={0.5} castShadow />

@@ -33,7 +33,7 @@ useGLTF.preload('/hitter.glb')
 export default function Lab003() {
   return (
     <Canvas
-      style={{ background: '#0a0a0a' }}
+      style={{ background: '#0a0a0a', width: '100vw', height: '100vh' }}
       camera={{ position: [0, 2, 6], fov: 45 }}
       shadows
     >
