@@ -7,7 +7,7 @@ export default function NotFound() {
     <main className="not-found">
       <p className="not-found-numeral">404</p>
       <h1 className="not-found-heading">Page not found.</h1>
-      <p className="not-found-path">Sorry. There's nothing at {location}</p>
+      <p className="not-found-path">Sorry. There&apos;s nothing at {location}</p>
       <Link href="/" className="not-found-link">Head back to the index →</Link>
     </main>
   )
