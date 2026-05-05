@@ -9,7 +9,7 @@ export interface TocEntry {
 export const toc: TocEntry[] = [
   {
     slug: '003-stage',
-    title: '[WIP] Stage',
+    title: 'Stage',
     date: 'May 2026',
     description: 'Theatrical stage scene with spotlights.',
   },

@@ -69,7 +69,7 @@ function RainbowText({ text, position = [0, 0, 0] }: RainbowTextProps) {
 
 function Swarm({ count, dummy = new THREE.Object3D() }: { count: number; dummy?: THREE.Object3D }) {
   const mesh = useRef<THREE.InstancedMesh>(null)
-  const light = useRef<THREE.AmbientLight>(null)
+  const light = useRef<THREE.PointLight>(null)
   const geo = useMemo(() => new THREE.SphereGeometry(0.3), [])
   const mat = useMemo(() => new THREE.MeshStandardMaterial({ vertexColors: true, metalness: 1, roughness: 0.5 }), [])
   const particles = useMemo<Particle[]>(() => {
@@ -120,7 +120,7 @@ function Swarm({ count, dummy = new THREE.Object3D() }: { count: number; dummy?:
 
   return (
     <>
-      <ambientLight ref={light} intensity={1} />
+      <pointLight ref={light} intensity={80} distance={120} />
       <instancedMesh ref={mesh} args={[geo, mat, count]} />
     </>
   )
