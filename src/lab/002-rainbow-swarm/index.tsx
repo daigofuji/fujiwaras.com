@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber/webgpu'
 import { useRef, useMemo, useEffect, useLayoutEffect } from 'react'
@@ -15,8 +14,25 @@ const rainbowColors = [
   '#732682',
 ]
 
-function RainbowText({ text, position = [0, 0, 0] }) {
-  const textRef = useRef()
+interface Particle {
+  t: number
+  factor: number
+  speed: number
+  xFactor: number
+  yFactor: number
+  zFactor: number
+  mx: number
+  my: number
+  color: THREE.Color
+}
+
+interface RainbowTextProps {
+  text: string
+  position?: [number, number, number]
+}
+
+function RainbowText({ text, position = [0, 0, 0] }: RainbowTextProps) {
+  const textRef = useRef<THREE.Mesh>(null)
   const elapsed = useRef(0)
   const { size } = useThree()
 
@@ -51,13 +67,13 @@ function RainbowText({ text, position = [0, 0, 0] }) {
   )
 }
 
-function Swarm({ count, dummy = new THREE.Object3D() }) {
-  const mesh = useRef()
-  const light = useRef()
+function Swarm({ count, dummy = new THREE.Object3D() }: { count: number; dummy?: THREE.Object3D }) {
+  const mesh = useRef<THREE.InstancedMesh>(null)
+  const light = useRef<THREE.AmbientLight>(null)
   const geo = useMemo(() => new THREE.SphereGeometry(0.3), [])
   const mat = useMemo(() => new THREE.MeshStandardMaterial({ vertexColors: true, metalness: 1, roughness: 0.5 }), [])
-  const particles = useMemo(() => {
-    const temp = []
+  const particles = useMemo<Particle[]>(() => {
+    const temp: Particle[] = []
     for (let i = 0; i < count; i++) {
       const t = Math.random() * 100
       const factor = 20 + Math.random() * 100
@@ -72,19 +88,21 @@ function Swarm({ count, dummy = new THREE.Object3D() }) {
   }, [count])
 
   useFrame((state) => {
+    if (!light.current || !mesh.current) return
     light.current.position.set(
-      (-state.mouse.x * state.viewport.width) / 5,
-      (-state.mouse.y * state.viewport.height) / 5,
+      (-state.pointer.x * state.viewport.width) / 5,
+      (-state.pointer.y * state.viewport.height) / 5,
       0
     )
     particles.forEach((particle, i) => {
-      let { t, factor, speed, xFactor, yFactor, zFactor, color } = particle
+      const { factor, speed, xFactor, yFactor, zFactor, color } = particle
+      let t = particle.t
       t = particle.t += speed / 2
       const a = Math.cos(t) + Math.sin(t * 1) / 10
       const b = Math.sin(t) + Math.cos(t * 2) / 10
       const s = Math.cos(t)
-      particle.mx += (state.mouse.x * 1000 - particle.mx) * 0.01
-      particle.my += (state.mouse.y * 1000 - 1 - particle.my) * 0.01
+      particle.mx += (state.pointer.x * 1000 - particle.mx) * 0.01
+      particle.my += (state.pointer.y * 1000 - 1 - particle.my) * 0.01
       dummy.position.set(
         (particle.mx / 10) * a + xFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 1) * factor) / 10,
         (particle.my / 10) * b + yFactor + Math.sin((t / 10) * factor) + (Math.cos(t * 2) * factor) / 10,
@@ -93,11 +111,11 @@ function Swarm({ count, dummy = new THREE.Object3D() }) {
       dummy.scale.setScalar(s)
       dummy.rotation.set(s * 5, s * 5, s * 5)
       dummy.updateMatrix()
-      mesh.current.setMatrixAt(i, dummy.matrix)
-      mesh.current.setColorAt(i, color)
+      mesh.current!.setMatrixAt(i, dummy.matrix)
+      mesh.current!.setColorAt(i, color)
     })
     mesh.current.instanceMatrix.needsUpdate = true
-    mesh.current.instanceColor.needsUpdate = true
+    if (mesh.current.instanceColor) mesh.current.instanceColor.needsUpdate = true
   })
 
   return (
@@ -124,7 +142,7 @@ export default function Lab002() {
       }
     `
     document.head.appendChild(style)
-    return () => document.head.removeChild(style)
+    return () => { document.head.removeChild(style) }
   }, [])
 
   return (

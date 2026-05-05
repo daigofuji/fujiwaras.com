@@ -1,15 +1,19 @@
-import React from 'react'
+import type { JSX } from 'react'
+import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 
-export function Fujiwara({ color, ...props }) {
+type FujiwaraProps = JSX.IntrinsicElements['group'] & { color?: string }
+
+export function Fujiwara({ color, ...props }: FujiwaraProps) {
   const { nodes } = useGLTF('/fujiwara.glb')
+  const curve = nodes.Curve as THREE.Mesh
   return (
     <group {...props} dispose={null}>
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Curve.geometry}
-        material={nodes.Curve.material}
+        geometry={curve.geometry}
+        material={curve.material}
         position={[-2.1, 1, 0]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={2.77}

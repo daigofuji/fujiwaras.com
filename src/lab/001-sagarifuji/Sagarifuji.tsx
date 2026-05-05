@@ -1,15 +1,17 @@
-import React from 'react'
+import type { JSX } from 'react'
+import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 
-export function Sagarifuji(props) {
+export function Sagarifuji(props: JSX.IntrinsicElements['group']) {
   const { nodes } = useGLTF('/sagarifuji.glb')
+  const curve = nodes.Curve as THREE.Mesh
   return (
     <group {...props} dispose={null}>
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Curve.geometry}
-        material={nodes.Curve.material}
+        geometry={curve.geometry}
+        material={curve.material}
         position={[-2.19, -0.7, -0]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={150}

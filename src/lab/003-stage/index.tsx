@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import { useEffect } from 'react'
 import { Canvas } from '@react-three/fiber/webgpu'
 import { OrbitControls, useGLTF } from '@react-three/drei'
@@ -8,7 +9,7 @@ function Hitter() {
 
   useEffect(() => {
     scene.traverse((child) => {
-      if (child.isMesh) {
+      if (child instanceof THREE.Mesh) {
         child.castShadow = true
         child.receiveShadow = true
       }
@@ -37,8 +38,6 @@ export default function Lab003() {
       shadows
     >
       <ambientLight intensity={0.8} />
-
-      {/* Amber key light */}
       <spotLight
         position={[5, 8, 3]}
         angle={0.3}
@@ -47,8 +46,6 @@ export default function Lab003() {
         color="#ffaa33"
         castShadow
       />
-      
-      {/* Cool blue fill */}
       <spotLight
         position={[-5, 6, 2]}
         angle={0.4}
@@ -57,8 +54,6 @@ export default function Lab003() {
         color="#3377ff"
         castShadow
       />
-      
-      {/* Red rim from behind */}
       <spotLight
         position={[0, 4, -5]}
         angle={0.25}

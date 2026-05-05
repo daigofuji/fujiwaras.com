@@ -1,4 +1,12 @@
-export const toc = [
+export interface TocEntry {
+  slug?: string
+  url?: string
+  title: string
+  date: string
+  description: string
+}
+
+export const toc: TocEntry[] = [
   {
     slug: '003-stage',
     title: '[WIP] Stage',
@@ -38,10 +46,10 @@ export const toc = [
     description: 'Rotating Sagari-Fuji Kamon with a clickable Fujiwara that cycles through rainbow color.',
   },
   {
-    // Maine JS 
+    // Maine JS
     url: 'https://daigofuji.github.io/maine-three-js-sept-2025/1',
     title: 'Taming Three.js with React Three Fiber',
     date: 'September 2025',
     description: 'Presented at Maine JS Lightning Talk, September 9, 2025. Made using slidev.',
-  }
+  },
 ]

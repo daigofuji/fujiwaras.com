@@ -2,12 +2,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Route, Switch } from 'wouter'
 
-import Home from './home/index.jsx'
-import Lab001 from './lab/001-sagarifuji/index.jsx'
-import Lab002 from './lab/002-rainbow-swarm/index.jsx'
-import Lab003 from './lab/003-stage/index.jsx'
+import Home from './home/index'
+import Lab001 from './lab/001-sagarifuji/index'
+import Lab002 from './lab/002-rainbow-swarm/index'
+import Lab003 from './lab/003-stage/index'
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Switch>
       <Route path="/" component={Home} />

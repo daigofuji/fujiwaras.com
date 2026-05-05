@@ -1,4 +1,4 @@
- 
+import * as THREE from 'three'
 import { Canvas, useFrame } from '@react-three/fiber/webgpu'
 import { useRef, useState } from 'react'
 import { Center } from '@react-three/drei'
@@ -19,8 +19,8 @@ const rainbowColors = [
 ]
 
 function RotatingSagarifuji() {
-  const ref = useRef()
-  useFrame((state, delta) => {
+  const ref = useRef<THREE.Mesh>(null)
+  useFrame((_, delta) => {
     if (ref.current) {
       ref.current.rotation.y += delta * 0.2
     }
@@ -34,16 +34,14 @@ function RotatingSagarifuji() {
 
 function ClickableFujiwara() {
   const [color, setColor] = useState(rainbowColors[0])
-  const ref = useRef()
 
   const handleClick = () => {
-    const currentIndex = rainbowColors.indexOf(color)
+    const currentIndex = rainbowColors.indexOf(color ?? '')
     setColor(rainbowColors[(currentIndex + 1) % rainbowColors.length])
   }
 
   return (
     <mesh
-      ref={ref}
       onClick={handleClick}
       onPointerOver={() => { document.body.style.cursor = 'pointer' }}
       onPointerOut={() => { document.body.style.cursor = 'auto' }}
@@ -64,6 +62,7 @@ function CameraRig() {
     )
     state.camera.lookAt(0, 0, 0)
   })
+  return null
 }
 
 export default function Lab001() {

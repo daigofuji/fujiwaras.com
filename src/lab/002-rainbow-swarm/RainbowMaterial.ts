@@ -61,14 +61,14 @@ class RainbowMaterial extends THREE.ShaderMaterial {
     })
   }
 
-  get time() { return this.uniforms.time.value }
-  set time(v) { this.uniforms.time.value = v }
-  get metalness() { return this.uniforms.metalness.value }
-  set metalness(v) { this.uniforms.metalness.value = v }
-  get roughness() { return this.uniforms.roughness.value }
-  set roughness(v) { this.uniforms.roughness.value = v }
-  get lightPosition() { return this.uniforms.lightPosition.value }
-  set lightPosition(v) { this.uniforms.lightPosition.value = v }
+  get time(): number { return this.uniforms.time.value as number }
+  set time(v: number) { this.uniforms.time.value = v }
+  get metalness(): number { return this.uniforms.metalness.value as number }
+  set metalness(v: number) { this.uniforms.metalness.value = v }
+  get roughness(): number { return this.uniforms.roughness.value as number }
+  set roughness(v: number) { this.uniforms.roughness.value = v }
+  get lightPosition(): THREE.Vector3 { return this.uniforms.lightPosition.value as THREE.Vector3 }
+  set lightPosition(v: THREE.Vector3) { this.uniforms.lightPosition.value = v }
 }
 
 extend({ RainbowMaterial })

@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import { Link } from 'wouter'
-import { toc } from '../lab/toc.js'
+import { toc, type TocEntry } from '../lab/toc'
 import './home.css'
 
-function ExperimentEntry({ exp }) {
+function ExperimentEntry({ exp }: { exp: TocEntry }) {
   const num = exp.slug ? exp.slug.split('-')[0] : '—'
   const inner = (
     <>
@@ -41,7 +40,7 @@ export default function Home() {
         </div>
         <ol className="lab-list">
           {toc.map((exp) => (
-            <li key={exp.slug || exp.url || exp.title} className="lab-item">
+            <li key={exp.slug ?? exp.url ?? exp.title} className="lab-item">
               <ExperimentEntry exp={exp} />
             </li>
           ))}
