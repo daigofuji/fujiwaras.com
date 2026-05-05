@@ -6,6 +6,7 @@ import Home from './home/index'
 import Lab001 from './lab/001-sagarifuji/index'
 import Lab002 from './lab/002-rainbow-swarm/index'
 import Lab003 from './lab/003-stage/index'
+import NotFound from './not-found/index'
 
 declare const gtag: (...args: unknown[]) => void
 
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')!).render(
       <Route path="/lab/001-sagarifuji" component={Lab001} />
       <Route path="/lab/002-rainbow-swarm" component={Lab002} />
       <Route path="/lab/003-stage" component={Lab003} />
+      <Route component={NotFound} />
     </Switch>
   </StrictMode>,
 )
