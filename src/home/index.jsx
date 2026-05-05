@@ -33,6 +33,11 @@ export default function Home() {
       <section className="lab-section">
         <p className="lab-label">Playground</p>
         <p className="lab-chatter">My digital sketches and interactive proof of concepts.</p>
+        <div className="lab-links">
+          <a href="https://instagram.com/daigofuji" target="_blank" rel="noopener noreferrer">Instagram</a> |{' '}
+          <a href="https://www.linkedin.com/in/daigo/" target="_blank" rel="noopener noreferrer">LinkedIn</a> |{' '}
+          <a href="https://bsky.app/profile/daigofuji.bsky.social" target="_blank" rel="noopener noreferrer">BlueSky</a>
+        </div>
         <ol className="lab-list">
           {toc.map((exp) => (
             <li key={exp.slug || exp.url || exp.title} className="lab-item">
