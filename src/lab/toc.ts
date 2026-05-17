@@ -8,6 +8,13 @@ export interface TocEntry {
 
 export const toc: TocEntry[] = [
   {
+    // Japanese American Population Map
+    url: 'https://daigofuji.github.io/japanese-american-population-2024/',
+    title: 'Japanese American Population Map',
+    date: 'May 2024',
+    description: 'Census ACS dta in MapBox GL JS for Pacific Citizen/JACL.',
+  },
+  {
     slug: '003-stage',
     title: 'Stage',
     date: 'May 2026',
