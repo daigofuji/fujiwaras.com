@@ -25,13 +25,12 @@ export default function Home() {
       <header>
         <h1 className="home-name">Daigo Fujiwara-Smith</h1>
         <p className="home-tagline">
-          Lifetime learner to be a world-class newsroom developer, visual computational artist. This is the place I learn in public, share experiments, and document my journey.
+          By day, I build <a href="">interactive journalism</a> at The Boston Globe's <a href="https://apps.bostonglobe.com/">Story Lab Interactive team</a>. Here I experiment with WebGPU, R3F, and and computational storytelling techniques and technologies I haven't figured out yet. Learning in public, one project at a time.
         </p>
       </header>
 
       <section className="lab-section">
         <p className="lab-label">Playground</p>
-        <p className="lab-chatter">My digital sketches and interactive proof of concepts in WebGPU and such.</p>
         <div className="lab-links">
           <a href="https://github.com/daigofuji" target="_blank" rel="noopener noreferrer">GitHub</a> |{' '}
           <a href="https://instagram.com/daigofuji" target="_blank" rel="noopener noreferrer">Instagram</a> |{' '}
@@ -51,6 +50,7 @@ export default function Home() {
         <p>
           Made by Daigo Fujiwara-Smith in Portland, Maine with love.{' '}
           <a href="https://github.com/daigofuji" target="_blank" rel="noopener noreferrer">GitHub</a> |{' '}
+          <a href="https://instagram.com/daigofuji" target="_blank" rel="noopener noreferrer">Instagram</a> |{' '}
           <a href="https://www.linkedin.com/in/daigo/" target="_blank" rel="noopener noreferrer">LinkedIn</a> |
           {' '}
           <a href="https://bsky.app/profile/daigofuji.bsky.social" target="_blank" rel="noopener noreferrer">BlueSky</a> |
