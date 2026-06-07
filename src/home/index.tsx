@@ -25,7 +25,7 @@ export default function Home() {
       <header>
         <h1 className="home-name">Daigo Fujiwara-Smith</h1>
         <p className="home-tagline">
-          By day, I build <a href="">interactive journalism</a> at The Boston Globe&apos;s <a href="https://apps.bostonglobe.com/">Story Lab Interactive team</a>. Here I experiment with WebGPU, R3F, and and computational storytelling techniques and technologies I haven&apos;t figured out yet. Learning in public, one project at a time.
+          By day, I build <a href="https://www.bostonglobe.com/about/staff-list/staff/daigo-fujiwara-smith/">interactive journalism</a> at The Boston Globe&apos;s <a href="https://apps.bostonglobe.com/">Story Lab</a> (See <a href="https://www.linkedin.com/in/daigo/" target="_blank" rel="noopener noreferrer">LinkedIn</a> for more). Here I experiment with WebGPU, R3F, and and computational storytelling I haven&apos;t figured out yet. Learning in public, one project at a time.
         </p>
       </header>
 

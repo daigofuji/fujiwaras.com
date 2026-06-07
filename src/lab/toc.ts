@@ -8,10 +8,17 @@ export interface TocEntry {
 
 export const toc: TocEntry[] = [
   {
+    // Census ACS API URL builder
+    url: 'https://bostonglobe.github.io/census-url-builder/',
+    title: 'Census ACS API URL Builder',
+    date: 'June 2026',
+    description: 'A user interface to build Census Bureau\'s American Community Survey API URLs.',
+  },
+  {
     // Japanese American Population Map
     url: 'https://daigofuji.github.io/japanese-american-population-2024/',
     title: 'Japanese American Population Map',
-    date: 'May 2024',
+    date: 'May 2026',
     description: 'Census ACS dta in MapBox GL JS for Pacific Citizen/JACL.',
   },
   {
